@@ -1,0 +1,80 @@
+#! /usr/bin/env bash
+#backup script
+#OF=myhome_directory_$(date +%Y%m%d).tar.gz
+#tar -czf $OF /home/linuxconfig
+
+echo "Introdu o comanda"
+while :
+do
+read INPUT_STRING
+  case $INPUT_STRING in
+ expression) { a=16
+               b=20
+               if [ $a = $b ]
+               then
+                  echo "a is equal to b"
+               elif [ $a -gt $b ]
+               then
+                  echo "a is greater than b"
+               elif [ $a -lt $b ]
+               then
+                  echo "a is less than b"
+               else
+                  echo "None of the condition met"
+               fi
+
+ }
+ ;;
+
+sweets) {
+         read SWEETS
+         case $SWEETS in
+            "cinnamon") echo "cinn."
+            ;;
+            "muffin") echo "muff."
+            ;;
+            "chocho") echo "chocho."
+            ;;
+         esac
+
+}
+;;
+talk) {
+       echo "Please talk to me ..."
+       while :
+       do
+         read INPUT_STRING
+         case $INPUT_STRING in
+       	hello)
+       		echo "Hello !"
+       		;;
+       	bye)
+       		echo "See you again!"
+       		break
+       		;;
+         esac
+       done
+       echo "Key Bye"
+
+}
+;;
+guessgame) { number=$((RANDOM%10 + 1))
+             score=3
+             read input_number
+             echo "guess the number!"
+             if [ $score -lt 1 ]
+             then
+               echo "Game over"
+               break
+               ;;
+             if [ $input_number = $number ]
+               then
+                 echo "You guessed the number"
+                 ;;
+                 fi
+                 fi
+
+*);;
+}
+esac
+done

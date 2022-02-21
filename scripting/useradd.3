@@ -1,0 +1,34 @@
+#!/usr/bin/bash
+ID=`(wc -l /etc/passwd | awk '{​​ print $1 }​​')`
+FREE_ID=$(( $ID + 1 ))
+clear
+echo "First free ID is $FREE_ID"
+echo "Enter username... "
+read USERNAME
+echo "Add a description for the user... "
+read DESCRIPTION
+echo "Add due date for account... "
+read DUE_DATE
+echo "Do you want to add user to extra groups? "
+read OPTIONuseradd -m -e $DUE_DATE -c "$DESCRIPTION" $USERNAMEif [ $OPTION = "yes" ]
+then
+while read -r -p "Group: " GROUPS
+do
+if [[ -z $GROUPS ]]
+then
+break
+fi
+if [ $(getent group) $GROUPS ]
+then
+usermod -a -G $GROUPS $USERNAME
+echo "$USERNAME was added in $GROUPS"
+else
+echo "ACHTUNG! The group doesn't exist!"
+fi
+done
+fi
+echo "Enter the password for the user: $USERNAME"
+passwd $USERNAME
+USER_ID=`(id -u $USERNAME)`
+echo $USER_ID
+

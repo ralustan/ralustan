@@ -1,0 +1,11 @@
+#! /usr/bin/env python3
+
+import os
+myfile1 = open("file3.txt", "w+")  # deschide/creeaza un file care poate fi sris si citit
+myfile1.write("Raluca e cea mai tare!!\nE superrr\n")
+
+print("Textu este: ", myfile1.read())
+print("name: ", myfile1.name)
+print("If it's closed: ", myfile1.close)
+print("opening mode: ", myfile1.mode)
+

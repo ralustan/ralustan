@@ -1,0 +1,68 @@
+#! /usr/bin/env bash
+a=10
+b=20
+val=`expr $a + $b`
+echo "a + b : $val"
+val=`expr $a - $b`
+echo "a - b : $val"
+
+if [ $a = $b ]
+then
+   echo "a is equal to b"
+elif [ $a -gt $b ]
+then
+   echo "a is greater than b"
+elif [ $a -lt $b ]
+then
+   echo "a is less than b"
+else
+   echo "None of the condition met"
+fi
+
+
+read SWEETS
+case $SWEETS in
+   "cinnamon") echo "cinn."
+   ;;
+   "muffin") echo "muff."
+   ;;
+   "chocho") echo "chocho."
+   ;;
+esac
+
+
+echo "Please talk to me ..."
+while :
+do
+  read INPUT_STRING
+  case $INPUT_STRING in
+	hello)
+		echo "Hello !"
+		;;
+	bye)
+		echo "See you again!"
+		break
+		;;
+  esac
+done
+echo
+echo "Key Bye"
+#Declare array with 4 elements
+ARRAY=( 'Debian Linux' 'Redhat Linux' Ubuntu Linux )
+# get number of elements in the array
+ELEMENTS=${#ARRAY[@]}
+
+# echo each element in array
+# for loop
+for (( i=0;i<$ELEMENTS;i++)); do
+    echo ${ARRAY[${i}]}
+done
+# bash select
+select word in "linux" "bash" "scripting" "tutorial"
+do
+  echo "The word you have selected is: $word"
+# Break, otherwise endless loop
+  break
+done
+
+

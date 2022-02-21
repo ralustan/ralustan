@@ -1,0 +1,98 @@
+1. Utilizati comanda rpm pentru a gestiona software-ul:
+2. Utilizati comanda rpm pentru a inventaria toate software-ul instalat si a redirectiona aceasta lista de inventar intr-un fisier text.
+
+rpm -qa > fisier.txt
+
+3. Instalati un pachet RPM utilizand comanda rpm. De exemplu, instalati pachetul zsh.
+
+sudo rpm -ivh zsh-5.1-1.gf.el7.src.rpm
+-i : install a package
+-v : verbose for a nicer display
+-h: print hash marks as the package archive is unpacked.
+4. Descarcati pachetul daca este necesar.
+yum install zsh
+
+5. Utilizati comanda rpm pentru a obtine informatii despre pachetul zsh, apoi utilizati rpm pentru a dezinstala pachetul.
+rpm -qi zsh
+rpm -e zsh
+
+6. Utilizati comanda dnf pentru a gestiona software-ul:
+
+7. Instalati un pachet RPM cu comanda dnf. De exemplu, instalati pachetul ksh.
+
+dnf install ksh
+
+8. Utilizati comanda dnf pentru a obtine informatii despre pachetul ksh, apoi utilizati dnf pentru a dezinstala pachetul.
+
+dnf info ksh
+dnf remove ksh
+
+9. Gasiti si descarcati software-ul pe care trebuie sa il compilați. Parcurgeti procesul de compilare a software-ului. (GitLab, GitHub si Sourceforge sunt depozite de dezvoltare populare.)
+
+
+10. Descarcati un program care include o suma de control MD5 pentru a verifica integritatea acestuia. Dupa descarcare, comparati rezultatele MD5 cu rezultatele de pe site.
+
+O sumă de control este rezultatul executării unui algoritm, numit funcție hash criptografică , pe o bucată de date, de obicei un singur fișier . Comparând suma de control generată de versiunea dvs. cu fișierul cu cea furnizată de sursa fișierului, vă asigurăm că copia dvs. de fișier este autentică și fără erori.
+
+touch file1.txt
+md5sum file1.txt > file.md5
+md5sum -c(check) file.md5
+
+11. Configurati una dintre masinile de laborator sa porneasca la interfata de linie de comanda (CLI) folosind systemd si reporniti pentru a confirma ca ati avut succes.
+
+sudo nano /usr/lib/systemd/MYSERVICE.service
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=YOUR_COMMAND_HERE
+Restart=on-failure
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+
+sudo systemctl enable MYSERVICE
+
+sudo systemctl start MYSERVICE
+
+sudo systemctl status MYSERVICE
+
+12. Fara a reporni sau a modifica setarile implicite, porniti GUI utilizand systemd.
+
+systemctl get-default
+sudo systemctl set-default graphical.target
+sudo reboot
+
+13. Reconfigurati VM pentru a porni in GUI in mod implicit, apoi reporniti pentru a confirma ca ati avut succes.
+
+yum groupinstall "X Window System" "GNOME Desktop Environment"
+vi /etc/inittab
+reboot
+
+14. Configurati VM sa porneasca din nou la CLI, apoi reporniți pentru a confirma ca ati avut succes.
+
+
+
+15. Utilizati urmatoarele comenzi pentru a documenta informatiile hardware pentru computerele de laborator: df, du, cat /proc/cpuinfo, cat /proc/meminfo, devices, partitions, ifconfig, ip addr, cat /etc/fstab, uname –a
+lspci - devices
+fdisk -l - partitions
+
+
+16. Directionati rezultatul de la aceste comenzi in fisiere text (creați cate fisiere text doriti pentru a organiza aceasta documentatie in mod rezonabil). Folositi atat > cat si >> pentru a organiza datele.
+
+df -h >> df.txt
+cat /proc/cpuinfo > proc.txt
+cat /proc/meminfo > mem.txt
+lspci > dev.txt
+sudo fdisk -l > part.txt
+cat /etc/fstab >> part2.txt
+
+17. Redirectionati iesirea dmesg catre un fisier text si apoi utilizati utilitarul grep pentru a afisa orice referinta la „memorie” sau „CPU” in fisier. Ce va mai spune acest fisier?
+
+dmesg >> dmesg.txt
+grep 'module' dmesg.txt

@@ -1,0 +1,85 @@
+1. Creati directoare pentru fiecare departament (vanzari, marketing, resurse umane, IT, inginerie) la radacina sistemului de fisiere.
+
+
+2. Configurati permisiunile standard Linux si proprietatea astfel incat fiecare grup sa aiba acces doar la propriile directoare departamentale.
+
+chown utilizator1:vanzari vanzari
+
+
+
+3. Dupa finalizarea si testarea pasului anterior, configurati permisiunile ACL pentru a permite departamentului de marketing sa aiba acces de citire la directorul /sales.
+
+get facl vanzari
+
+setfacl -m g:marketing:r-- vanzari/
+
+4. Utilizati permisiunile ACL pentru a permite unui cont de utilizator sa aiba permisiunea de citire in directorul /IT.
+
+setfacl -m u:utilizator1:r-- IT/
+
+5. Configurati SGID si sticky bit in directorul / marketing.
+
+SGID : chmod 2770 marketing/
+
+Sticky BIT: chmod +t marketing/unchangeable.txt
+
+
+6. Asigurati-va ca doua dintre conturile dvs. de utilizator existente sunt acum membri ai grupului de marketing.
+
+
+7. Utilizati fiecare cont pentru a crea un fisier în directorul /marketing.
+swtich --user
+su - utilizator2
+
+8. Testati daca unul dintre aceste conturi poate sterge fisierul creat de celalalt cont (nu ar trebui sa poata, din cauza sticky bit).
+
+
+9. Creati un fisier numit unchangeable.txt, setati atributul imuabil pe el si apoi stergeti fisierul.
+chattr +i /unchangeble.txt
+--to see attributes: lsattr
+chattr -i /... - delete
+rm file
+10. Configurati legaturile la fisiere.
+
+
+11. Creati un fisier numit LinksTest.txt in directorul /opt si apoi creati un link dur catre acesta in directorul /tmp. Utilizati Vim pentru a adauga o linie de text la fisier prin calea /opt/LinksTest.txt, apoi afisati continutul fisierului folosind calea fisierului /tmp/LinksTest.txt.
+
+HardLink - a file to have more than one name in separate places in the same file 
+ln /opt/LinksTest /tmp/links
+
+
+12. Creati un link simbolic catre /tmp/LinksTest.txt in directorul principal al utilizatorului radacina si vizualizati continutul fisierului.
+
+ln -s /opt/LinksTest /tmp/slinks
+13. Stergeti fisierul /tmp/LinksTest.txt si apoi incercati sa vizualizati continutul fisierului prin linkul simbolic /root/LinksTest.txt.
+
+
+14. Creati 10 fisiere in directorul /tmp, apoi utilizati tar si gzip pentru a grupa si comprima fisierele.
+tar -czvf archive.tar /path
+
+15. Stergeti cele 10 fisiere originale si apoi restaurati-le din tarball.
+tar xvf archive.tar*
+
+16. Utilizați comanda find pentru a cauta fisierele de testare in directoarele departamentului. 
+
+17. Efectuati aceasta sarcina mai intai ca utilizator root, apoi ca utilizator care este membru al grupului care detine directorul si, in sfarsit, ca utilizator care nu este membru al grupului care detine directorul.
+
+
+18. Numai pe linia de comanda, exersati montarea si demontarea imaginilor ISO.
+mkdir mnt
+sudo mount fossa mnt/ -o loop
+
+
+19. Copiati un fișier din ISO intr-un director de instalare Linux
+cp Downloads/mnt/README.txt /
+
+Configurati LVM:
+
+
+20. Desemnati doua sectiuni de 50 MB fiecare din spatiul liber ramas pe hard disk pentru a fi volume fizice (PV) utilizate de LVM.
+
+
+21. Combinati-le cu PV intr-un singur grup de volume, apoi configurati un singur volum logic (LV) care este de 100 MB.
+
+
+22. Creati un director care sa serveasca drept punct de montare pentru acest LV si adaugati o intrare in /etc/fstab, astfel incat sa fie montat in timpul pornirii sistemului.
